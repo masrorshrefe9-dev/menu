@@ -8,78 +8,48 @@
     <style>
         :root { --primary: #ffcc00; --bg: #0b0b0b; --card: #1a1a1a; }
         body { background-color: var(--bg); color: white; font-family: sans-serif; margin: 0; padding: 0; }
-        
-        /* Header & Logo */
-        .header { text-align: center; padding: 40px 20px; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=500&q=60'); background-size: cover; border-bottom: 4px solid var(--primary); }
-        .logo-circle { width: 80px; height: 80px; background: var(--primary); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 40px; color: black; box-shadow: 0 0 20px var(--primary); }
-
-        /* Categories Bar */
-        .categories { display: flex; overflow-x: auto; padding: 15px; gap: 10px; background: #111; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #333; }
-        .cat-btn { background: var(--card); border: 1px solid #444; color: white; padding: 8px 20px; border-radius: 20px; white-space: nowrap; cursor: pointer; }
-        .cat-btn.active { background: var(--primary); color: black; font-weight: bold; }
-
-        /* Menu Grid */
-        .menu-grid { padding: 20px; display: grid; grid-template-columns: 1fr; gap: 20px; }
-        .item-card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid #333; transition: 0.3s; }
-        .item-img { width: 100%; height: 180px; object-fit: cover; }
+        .header { text-align: center; padding: 50px 20px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=500'); background-size: cover; border-bottom: 4px solid var(--primary); }
+        .categories { display: flex; overflow-x: auto; padding: 15px; gap: 10px; background: #111; position: sticky; top: 0; z-index: 100; }
+        .cat-btn { background: var(--card); border: 1px solid #444; color: white; padding: 8px 20px; border-radius: 20px; white-space: nowrap; }
+        .menu-grid { padding: 20px; display: grid; gap: 20px; }
+        .item-card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid #333; }
+        .item-img { width: 100%; height: 200px; object-fit: cover; background: #222; }
         .item-content { padding: 15px; }
-        .item-title { font-size: 20px; font-weight: bold; color: var(--primary); margin: 0; }
-        .item-desc { font-size: 13px; color: #aaa; margin: 8px 0; }
-        .item-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
-        .price { font-size: 18px; font-weight: bold; color: #fff; }
-        .calories { font-size: 11px; color: #777; background: #222; padding: 3px 8px; border-radius: 5px; }
-
-        /* Footer */
-        .footer { text-align: center; padding: 30px; background: #000; color: #555; }
-        .contact-btn { display: inline-block; background: #25d366; color: white; padding: 10px 25px; border-radius: 10px; text-decoration: none; margin-top: 15px; }
+        .price { font-size: 18px; font-weight: bold; color: var(--primary); }
+        .footer { text-align: center; padding: 30px; color: #555; }
     </style>
 </head>
 <body>
-
     <div class="header">
-        <div class="logo-circle"><i class="fas fa-utensils"></i></div>
-        <h1>مەتعه‌مێ قادش یا خۆشتڤی</h1>
-        <p>خارنێن مۆدێرن ب تامەکا دەلال</p>
+        <h1>🍔 مەتعه‌مێ قادش یا جیهانی</h1>
+        <p>باشترین خارن ب دەستێ مەسروور شەریف</p>
     </div>
-
     <div class="categories">
-        <div class="cat-btn active">هەمی</div>
+        <div class="cat-btn" style="background:var(--primary); color:black;">هەمی</div>
         <div class="cat-btn">پیتزا</div>
         <div class="cat-btn">بۆڕگەر</div>
         <div class="cat-btn">کەباب</div>
-        <div class="cat-btn">ڤەخوارن</div>
     </div>
-
     <div class="menu-grid">
         <div class="item-card">
-            <img class="item-img" src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?auto=format&fit=crop&w=500&q=60" alt="Burger">
+            <img class="item-img" src="https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=500">
             <div class="item-content">
-                <div class="item-title">بۆڕگەر سپایسی مەسروور</div>
-                <p class="item-desc">گۆشتێ فرێش، پەنیرێ چێدەر، سۆسا تیژ، کاهو</p>
-                <div class="item-footer">
-                    <span class="price">6,500 IQD</span>
-                    <span class="calories"><i class="fas fa-fire"></i> 850 Cal</span>
-                </div>
+                <h3>بۆڕگەر سپایسی</h3>
+                <p style="color:#aaa;">گۆشتێ فرێش، پەنیر، سۆسا تایبەت</p>
+                <span class="price">6,500 IQD</span>
             </div>
         </div>
-
         <div class="item-card">
-            <img class="item-img" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=60" alt="Pizza">
+            <img class="item-img" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500">
             <div class="item-content">
-                <div class="item-title">پیتزا قادش یا تایبەت</div>
-                <p class="item-desc">سۆسا ئیتاڵی، مۆزارێلا، بیبەر، قارچک</p>
-                <div class="item-footer">
-                    <span class="price">10,000 IQD</span>
-                    <span class="calories"><i class="fas fa-fire"></i> 1200 Cal</span>
-                </div>
+                <h3>پیتزا قادش</h3>
+                <p style="color:#aaa;">سۆسا ئیتاڵی، مۆزارێلا، قارچک</p>
+                <span class="price">10,000 IQD</span>
             </div>
         </div>
     </div>
-
     <div class="footer">
-        <p>گەشەپێدراوە ژ لایێ: مەسروور شەریف 🛡️</p>
-        <a href="tel:07500000000" class="contact-btn"><i class="fas fa-phone"></i> پەیوەندی بکە</a>
+        <p>دیزاین کراوە لایەن مەسروور تەکنیک 🛡️</p>
     </div>
-
 </body>
 </html>
