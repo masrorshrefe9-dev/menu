@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مینوویا مەتعه‌مێ قادش</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --main-gold: #ffcc00; --dark-bg: #0b0b0b; --card-bg: #1a1a1a; }
+        body { background-color: var(--dark-bg); color: white; font-family: 'Tahoma', sans-serif; margin: 0; padding: 0; }
+        
+        /* Header یا مەزن وەک ڤیدیۆیێ */
+        .header { text-align: center; padding: 80px 20px; background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1000'); background-size: cover; border-bottom: 6px solid var(--main-gold); }
+        .logo-box { width: 100px; height: 100px; background: var(--main-gold); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 50px; color: black; box-shadow: 0 0 30px var(--main-gold); }
+        
+        /* ناڤێ مەتعه‌مێ ب مەزنی */
+        h1 { margin: 0; font-size: 3.5rem; color: var(--main-gold); text-shadow: 3px 3px 15px black; font-weight: 900; }
+        .subtitle { font-size: 1.3rem; color: #eee; margin-top: 10px; font-weight: bold; }
+
+        /* Menu Grid */
+        .container { padding: 40px 15px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; }
+        .food-card { background: var(--card-bg); border-radius: 30px; overflow: hidden; border: 1px solid #333; transition: 0.4s; position: relative; }
+        .food-card:hover { transform: translateY(-15px); border-color: var(--main-gold); }
+        .img-box { position: relative; width: 100%; height: 250px; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .price-badge { position: absolute; top: 20px; left: 20px; background: var(--main-gold); color: black; padding: 8px 18px; border-radius: 15px; font-weight: 900; font-size: 1.2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.4); }
+        
+        .food-info { padding: 25px; }
+        .food-info h3 { margin: 0 0 10px; font-size: 1.7rem; color: var(--main-gold); }
+        .food-info p { color: #bbb; font-size: 1rem; line-height: 1.6; }
+        
+        .order-btn { width: 100%; padding: 15px; margin-top: 20px; border-radius: 20px; border: 2px solid var(--main-gold); background: transparent; color: var(--main-gold); font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: 0.3s; }
+        .order-btn:hover { background: var(--main-gold); color: black; }
+
+        .footer { text-align: center; padding: 60px; background: #000; color: #777; border-top: 1px solid #222; }
+        .footer b { color: var(--main-gold); font-size: 1.2rem; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo-box"><i class="fas fa-hamburger"></i></div>
+        <h1>مەتعه‌مێ قادش</h1>
+        <div class="subtitle">🛡️ ب سەرپەرشتیا مەسروور شەریف 🛡️</div>
+    </div>
+
+    <div class="container">
+        <div class="food-card">
+            <div class="img-box">
+                <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600" alt="Burguer">
+                <div class="price-badge">7,500 IQD</div>
+            </div>
+            <div class="food-info">
+                <h3>بۆڕگەرێ جیهانی</h3>
+                <p>گۆشتێ فرێش یێ ناڤخۆیی، پەنیرێ چێدەر، و سۆسا قادش یا تایبەت.</p>
+                <button class="order-btn">داوا بکە</button>
+            </div>
+        </div>
+
+        <div class="food-card">
+            <div class="img-box">
+                <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600" alt="Pizza">
+                <div class="price-badge">11,000 IQD</div>
+            </div>
+            <div class="food-info">
+                <h3>پیتزا تایبەت</h3>
+                <p>تژی پەنیرێ مۆزارێلا و قارچک و سەوزەواتێن فرێش یێن ڕۆژانە.</p>
+                <button class="order-btn">داوا بکە</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>دیزاین کراوە ژ لایێ: <b>Masror Tech 🛡️</b></p>
+        <p>© 2026 هەمی ماف پاراستینە بۆ مەتعه‌مێ قادش</p>
+    </div>
+
+</body>
+</html>
