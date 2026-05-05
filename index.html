@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خارنگەها قەدش</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --main: #ffcc00; --bg: #0b0b0b; --card: #161616; }
+        body { background-color: var(--bg); color: white; font-family: 'Tahoma', sans-serif; margin: 0; padding: 0; }
+        
+        .lang-bar { background: #000; padding: 15px; display: flex; justify-content: center; gap: 10px; border-bottom: 2px solid var(--main); position: sticky; top: 0; z-index: 2000; }
+        .lang-btn { background: var(--card); border: 1px solid var(--main); color: var(--main); padding: 8px 15px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        
+        .header { text-align: center; padding: 50px 20px; border-bottom: 4px solid var(--main); }
+        .nav-scroll { background: #111; padding: 15px; display: flex; gap: 10px; overflow-x: auto; position: sticky; top: 62px; z-index: 1500; }
+        .cat-item { background: var(--card); border: 1px solid #333; color: white; padding: 10px 25px; border-radius: 25px; cursor: pointer; white-space: nowrap; font-weight: bold; }
+        .cat-item.active { background: var(--main); color: black; }
+
+        .container { padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        
+        .card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid #252525; position: relative; }
+        .card.featured { grid-column: 1 / -1; border: 2px solid var(--main); }
+        
+        .price { background: var(--main); color: black; padding: 5px 15px; border-radius: 10px; font-weight: bold; position: absolute; top: 15px; left: 15px; }
+        .info { padding: 25px; text-align: center; }
+        .food-title { font-size: 1.8rem; color: var(--main); margin: 10px 0; }
+
+        .final-footer { background: var(--main); color: black; padding: 60px 20px; text-align: center; margin-top: 50px; border-top: 5px solid #000; }
+        .phone-link { color: black; text-decoration: none; font-size: 2.2rem; font-weight: bold; display: block; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <div class="lang-bar">
+        <button class="lang-btn" onclick="changeLang('ku')">کوردی</button>
+        <button class="lang-btn" onclick="changeLang('ar')">عربي</button>
+        <button class="lang-btn" onclick="changeLang('en')">English</button>
+    </div>
+
+    <div class="header">
+        <h1 id="title">خارنگەها قەدش</h1>
+        <p id="slogan">خۆشترین تام ب تاما مالێ</p>
+    </div>
+
+    <div class="nav-scroll">
+        <div class="cat-item active" id="cat-all" onclick="filter('all')">هەمی</div>
+        <div class="cat-item" id="cat-home" onclick="filter('home')">خارنێن مالێ</div>
+        <div class="cat-item" id="cat-grill" onclick="filter('grill')">برزانک</div>
+        <div class="cat-item" id="cat-pizza" onclick="filter('pizza')">پیتزا</div>
+        <div class="cat-item" id="cat-fast" onclick="filter('fast')">فاست فوود</div>
+        <div class="cat-item" id="cat-sweet" onclick="filter('sweet')">شرینی</div>
+        <div class="cat-item" id="cat-hot" onclick="filter('hot')">ڤەخوارنێن گەرم</div>
+        <div class="cat-item" id="cat-cold" onclick="filter('cold')">ڤەخوارنێن سار</div>
+        <div class="cat-item" id="cat-nargila" onclick="filter('nargila')">نەرگیلە</div>
+    </div>
+
+    <div class="container">
+        <div class="card featured" data-type="pizza">
+            <span class="price">10,000 IQD</span>
+            <div class="info">
+                <h2 class="food-title" data-ku="پیتزا شاهانە" data-ar="بيتزا ملكية" data-en="Royal Pizza">پیتزا شاهانە</h2>
+                <p class="desc" data-ku="هەمی جۆرێن پیتزایێ ب تاما تایبەت" data-ar="جميع أنواع البيتزا بنكهة خاصة" data-en="All types of pizza with special taste">هەمی جۆرێن پیتزایێ ب تاما تایبەت</p>
+            </div>
+        </div>
+
+        <div class="card" data-type="nargila">
+            <span class="price">5,000 IQD</span>
+            <div class="info">
+                <h2 class="food-title" data-ku="نەرگیلە" data-ar="نرجيلة" data-en="Nargila">نەرگیلە</h2>
+                <p class="desc" data-ku="هەمی جۆرێن تێکەهل" data-ar="جميع أنواع المخلوط" data-en="All mix types">هەمی جۆرێن تێکەهل</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="final-footer">
+        <h3 id="call-msg">بۆ داواکرنێ تەلەفۆنێ بکە:</h3>
+        <a href="tel:07501234567" class="phone-link">0750 123 45 67</a>
+        <p style="margin-top:10px; font-weight:bold;">Address: Duhok - Qadesh</p>
+    </footer>
+
+    <script>
+        function filter(type) {
+            document.querySelectorAll('.card').forEach(c => {
+                c.style.display = (type === 'all' || c.dataset.type === type) ? 'block' : 'none';
+            });
+            document.querySelectorAll('.cat-item').forEach(i => i.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function changeLang(lang) {
+            const translations = {
+                ku: { title: "خارنگەها قەدش", slogan: "خۆشترین تام ب تاما مالێ", call: "بۆ داواکرنێ تەلەفۆنێ بکە:", all: "هەمی", home: "خارنێن مالێ", grill: "برزانک", pizza: "پیتزا", fast: "فاست فوود", sweet: "شرینی", hot: "ڤەخوارنێن گەرم", cold: "ڤەخوارنێن سار", nargila: "نەرگیلە" },
+                ar: { title: "مطعم قدش", slogan: "أشهى المأكولات بنكهة البيت", call: "للطلب اتصل بنا:", all: "الكل", home: "أکل بیت", grill: "مشاوي", pizza: "بيتزا", fast: "وجبات سريعة", sweet: "حلويات", hot: "مشروبات ساخنة", cold: "مشروبات باردة", nargila: "نرجيلة" },
+                en: { title: "Qadash Restaurant", slogan: "Best Home-Style Taste", call: "Call to Order:", all: "All", home: "Home Food", grill: "Grill", pizza: "Pizza", fast: "Fast Food", sweet: "Dessert", hot: "Hot Drinks", cold: "Cold Drinks", nargila: "Nargila" }
+            };
+
+            const t = translations[lang];
+            document.getElementById('title').innerText = t.title;
+            document.getElementById('slogan').innerText = t.slogan;
+            document.getElementById('call-msg').innerText = t.call;
+            document.getElementById('cat-all').innerText = t.all;
+            document.getElementById('cat-home').innerText = t.home;
+            document.getElementById('cat-grill').innerText = t.grill;
+            document.getElementById('cat-pizza').innerText = t.pizza;
+            document.getElementById('cat-fast').innerText = t.fast;
+            document.getElementById('cat-sweet').innerText = t.sweet;
+            document.getElementById('cat-hot').innerText = t.hot;
+            document.getElementById('cat-cold').innerText = t.cold;
+            document.getElementById('cat-nargila').innerText = t.nargila;
+
+            document.querySelectorAll('.food-title').forEach(el => el.innerText = el.getAttribute('data-' + lang));
+            document.querySelectorAll('.desc').forEach(el => el.innerText = el.getAttribute('data-' + lang));
+            
+            document.body.dir = (lang === 'en') ? 'ltr' : 'rtl';
+        }
+    </script>
+</body>
+</html>
