@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مینوویا مەتعه‌مێ قادش</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --main: #ffcc00; --bg: #0b0b0b; --card: #161616; }
+        body { background-color: var(--bg); color: white; font-family: 'Tahoma', sans-serif; margin: 0; padding: 0; transition: 0.3s; }
+        
+        /* Language Bar */
+        .lang-bar { background: #000; padding: 15px; display: flex; justify-content: center; gap: 15px; border-bottom: 2px solid var(--main); position: sticky; top: 0; z-index: 2000; }
+        .lang-btn { background: var(--card); border: 1px solid var(--main); color: var(--main); padding: 8px 15px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+
+        /* Header */
+        .header { text-align: center; padding: 50px 20px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1000'); background-size: cover; }
+        h1 { font-size: 2.8rem; color: var(--main); margin: 10px 0; }
+
+        /* Categories Nav */
+        .nav-scroll { background: #111; padding: 15px; display: flex; gap: 10px; overflow-x: auto; border-bottom: 2px solid #222; justify-content: flex-start; }
+        .cat-item { background: var(--card); border: 1px solid #333; color: white; padding: 12px 25px; border-radius: 30px; cursor: pointer; white-space: nowrap; font-weight: bold; }
+        .cat-item.active { background: var(--main); color: black; border-color: var(--main); }
+
+        /* Grid */
+        .container { padding: 25px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: auto; }
+        .card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid #252525; transition: 0.3s; }
+        .card:hover { transform: translateY(-5px); border-color: var(--main); }
+        .img-box { height: 200px; position: relative; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .price { position: absolute; top: 10px; left: 10px; background: var(--main); color: black; padding: 5px 12px; border-radius: 10px; font-weight: bold; }
+        .info { padding: 15px; text-align: right; }
+        .info h3 { color: var(--main); margin: 0; font-size: 1.3rem; }
+        .btn { width: 100%; background: transparent; border: 2px solid var(--main); color: var(--main); padding: 10px; border-radius: 12px; cursor: pointer; margin-top: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="lang-bar">
+        <button class="lang-btn" onclick="changeLang('ku')">کوردی</button>
+        <button class="lang-btn" onclick="changeLang('ar')">عربي</button>
+        <button class="lang-btn" onclick="changeLang('en')">English</button>
+    </div>
+
+    <div class="header">
+        <h1 id="main-title">مەتعه‌مێ قادش</h1>
+        <p id="subtitle">🛡️ ب سەرپەرشتیا مەسروور شەریف 🛡️</p>
+    </div>
+
+    <div class="nav-scroll">
+        <div class="cat-item active" onclick="filter('all')">هەمی</div>
+        <div class="cat-item" onclick="filter('tazyati')">تەزیاتی</div>
+        <div class="cat-item" onclick="filter('pizza')">پیتزا</div>
+        <div class="cat-item" onclick="filter('burger')">بۆڕگەر</div>
+    </div>
+
+    <div class="container" id="menu-grid">
+        <div class="card" data-type="burger">
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500"><div class="price">7,500 IQD</div></div>
+            <div class="info"><h3>بۆڕگەر کلاسیک</h3><button class="btn">داوا بکە</button></div>
+        </div>
+        <div class="card" data-type="pizza">
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500"><div class="price">10,000 IQD</div></div>
+            <div class="info"><h3>پیتزا مارگێریتا</h3><button class="btn">داوا بکە</button></div>
+        </div>
+        <div class="card" data-type="tazyati">
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1544145945-f904253d0c71?w=500"><div class="price">1,000 IQD</div></div>
+            <div class="info"><h3>کۆکا کۆلا</h3><button class="btn">داوا بکە</button></div>
+        </div>
+        <div class="card" data-type="tazyati">
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?w=500"><div class="price">3,500 IQD</div></div>
+            <div class="info"><h3>ئایس کریم</h3><button class="btn">داوا بکە</button></div>
+        </div>
+    </div>
+
+    <script>
+        function filter(type) {
+            const cards = document.querySelectorAll('.card');
+            const items = document.querySelectorAll('.cat-item');
+            items.forEach(i => i.classList.remove('active'));
+            event.target.classList.add('active');
+            cards.forEach(card => {
+                if(type === 'all' || card.getAttribute('data-type') === type) card.style.display = 'block';
+                else card.style.display = 'none';
+            });
+        }
+
+        function changeLang(lang) {
+            const title = document.getElementById('main-title');
+            if(lang === 'ar') title.innerText = "مطعم قادش";
+            else if(lang === 'en') title.innerText = "Qadesh Restaurant";
+            else title.innerText = "مەتعه‌مێ قادش";
+        }
+    </script>
+</body>
+      </html>
+      
