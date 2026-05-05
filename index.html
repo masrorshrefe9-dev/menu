@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خارنگەها قەدش</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --main: #ffcc00; --bg: #0b0b0b; --card: #161616; }
+        body { background-color: var(--bg); color: white; font-family: 'Tahoma', sans-serif; margin: 0; padding: 0; transition: 0.3s; }
+        .lang-bar { background: #000; padding: 15px; display: flex; justify-content: center; gap: 10px; border-bottom: 2px solid var(--main); position: sticky; top: 0; z-index: 2000; }
+        .lang-btn { background: var(--card); border: 1px solid var(--main); color: var(--main); padding: 8px 12px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .header { text-align: center; padding: 60px 20px; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1000'); background-size: cover; border-bottom: 4px solid var(--main); }
+        h1 { font-size: 2.8rem; color: var(--main); margin: 0; }
+        .slogan { color: #ccc; font-size: 1.1rem; margin-top: 10px; }
+        .nav-scroll { background: #111; padding: 15px; display: flex; gap: 10px; overflow-x: auto; border-bottom: 2px solid #222; }
+        .cat-item { background: var(--card); border: 1px solid #333; color: white; padding: 10px 20px; border-radius: 25px; cursor: pointer; white-space: nowrap; font-weight: bold; }
+        .cat-item.active { background: var(--main); color: black; border-color: var(--main); }
+        .container { padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 1200px; margin: auto; }
+        .card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid #252525; transition: 0.3s; }
+        .img-box { height: 180px; position: relative; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .price { position: absolute; top: 10px; left: 10px; background: var(--main); color: black; padding: 4px 10px; border-radius: 8px; font-weight: bold; }
+        .info { padding: 15px; text-align: center; }
+        .btn { width: 100%; background: transparent; border: 2px solid var(--main); color: var(--main); padding: 8px; border-radius: 10px; cursor: pointer; margin-top: 10px; font-weight: bold; text-decoration: none; display: block; }
+        .footer { text-align: center; padding: 30px; color: #ffcc00; font-weight: bold; border-top: 1px solid #222; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <div class="lang-bar">
+        <button class="lang-btn" onclick="changeLang('ku')">کوردی</button>
+        <button class="lang-btn" onclick="changeLang('ar')">عربي</button>
+        <button class="lang-btn" onclick="changeLang('en')">English</button>
+    </div>
+
+    <div class="header">
+        <h1 id="main-title">خارنگەها قەدش</h1>
+        <p class="slogan" id="slogan-text">بۆ خۆشترین خارن ب تاما مالێ</p>
+    </div>
+
+    <div class="nav-scroll">
+        <div class="cat-item active" id="cat-all" onclick="filter('all')">هەمی</div>
+        <div class="cat-item" id="cat-home" onclick="filter('home')">خارنێن مالێ</div>
+        <div class="cat-item" id="cat-grill" onclick="filter('grill')">برزانک</div>
+        <div class="cat-item" id="cat-pizza" onclick="filter('pizza')">پیتزا</div>
+        <div class="cat-item" id="cat-fast" onclick="filter('fast')">فاست فوود</div>
+        <div class="cat-item" id="cat-sweet" onclick="filter('sweet')">شیرینی</div>
+        <div class="cat-item" id="cat-hot" onclick="filter('hot')">ڤەخوارنێن گەرم</div>
+        <div class="cat-item" id="cat-cold" onclick="filter('cold')">ڤەخوارنێن سار</div>
+        <div class="cat-item" id="cat-nargila" onclick="filter('nargila')">نەرگیلە</div>
+    </div>
+
+    <div class="container" id="menu-grid">
+        <div class="card" data-type="home">
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1541529086526-db283c563270?w=500"><div class="price">8,000 IQD</div></div>
+            <div class="info"><h3 class="food-name" data-ku="بریانی" data-ar="برياني" data-en="Biryani">بریانی</h3><a href="#" class="btn order-text">داوا بکە</a></div>
+        </div>
+        <div class="card" data-type="home">
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1626500155537-802c639527ec?w=500"><div class="price">6,000 IQD</div></div>
+            <div class="info"><h3 class="food-name" data-ku="ترشک" data-ar="ترشك" data-en="Trshk">ترشک</h3><a href="#" class="btn order-text">داوا بکە</a></div>
+        </div>
+        <div class="card" data-type="grill">
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500"><div class="price">12,000 IQD</div></div>
+            <div class="info"><h3 class="food-name" data-ku="کەباب" data-ar="كباب" data-en="Kebab">کەباب</h3><a href="#" class="btn order-text">داوا بکە</a></div>
+        </div>
+        <div class="card" data-type="pizza">
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500"><div class="price">10,000 IQD</div></div>
+            <div class="info"><h3 class="food-name" data-ku="پیتزا مارگێریتا" data-ar="بيتزا مارغريتا" data-en="Pizza Margherita">پیتزا مارگێریتا</h3><a href="#" class="btn order-text">داوا بکە</a></div>
+        </div>
+        <div class="card" data-type="nargila">
+            <div class="img-box"><img src="https://images.unsplash.com/photo-1527113341617-c0342cd76d75?w=500"><div class="price">5,000 IQD</div></div>
+            <div class="info"><h3 class="food-name" data-ku="نەرگیلە" data-ar="نرجيلة" data-en="Hookah">نەرگیلە</h3><a href="#" class="btn order-text">داوا بکە</a></div>
+        </div>
+    </div>
+
+    <div class="footer">دیزاین: مەسروور شریفی 🛡️</div>
+
+    <script>
+        function filter(type) {
+            const cards = document.querySelectorAll('.card');
+            const items = document.querySelectorAll('.cat-item');
+            items.forEach(i => i.classList.remove('active'));
+            event.target.classList.add('active');
+            cards.forEach(card => {
+                if(type === 'all' || card.getAttribute('data-type') === type) card.style.display = 'block';
+                else card.style.display = 'none';
+            });
+        }
+        function changeLang(lang) {
+            const title = document.getElementById('main-title');
+            const slogan = document.getElementById('slogan-text');
+            const foodNames = document.querySelectorAll('.food-name');
+            const orderBtns = document.querySelectorAll('.order-text');
+            if(lang === 'ar') {
+                title.innerText = "مطعم قدش"; slogan.innerText = "لأشهى المأكولات بنكهة البيت";
+                orderBtns.forEach(b => b.innerText = "اطلب الآن");
+            } else if(lang === 'en') {
+                title.innerText = "Qadash Restaurant"; slogan.innerText = "For the most delicious home-style food";
+                orderBtns.forEach(b => b.innerText = "Order Now");
+            } else {
+                title.innerText = "خارنگەها قەدش"; slogan.innerText = "بۆ خۆشترین خارن ب تاما مالێ";
+                orderBtns.forEach(b => b.innerText = "داوا بکە");
+            }
+            foodNames.forEach(f => f.innerText = f.getAttribute('data-' + lang));
+        }
+    </script>
+</body>
+          </html>
+          
