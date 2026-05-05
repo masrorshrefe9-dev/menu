@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مینوویا مەتعه‌مێ قادش</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --main-gold: #ffcc00; --dark-bg: #0b0b0b; --card-bg: #1a1a1a; }
+        body { background-color: var(--dark-bg); color: white; font-family: 'Tahoma', sans-serif; margin: 0; padding: 0; scroll-behavior: smooth; }
+        
+        /* Language Switcher */
+        .lang-bar { background: #000; padding: 10px; text-align: left; border-bottom: 1px solid #333; }
+        .lang-btn { background: transparent; border: 1px solid var(--main-gold); color: var(--main-gold); padding: 5px 15px; border-radius: 10px; cursor: pointer; font-size: 0.8rem; margin-left: 10px; }
+
+        /* Header */
+        .header { text-align: center; padding: 60px 20px; background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1000'); background-size: cover; border-bottom: 5px solid var(--main-gold); }
+        .logo-box { width: 90px; height: 90px; background: var(--main-gold); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 45px; color: black; box-shadow: 0 0 25px var(--main-gold); }
+        h1 { font-size: 3rem; color: var(--main-gold); margin: 10px 0; }
+
+        /* Categories Section - گرنگ بۆ جیاکرنا خارنان */
+        .categories { position: sticky; top: 0; background: #111; padding: 15px 0; display: flex; justify-content: center; gap: 10px; z-index: 1000; border-bottom: 2px solid #222; overflow-x: auto; }
+        .cat-btn { background: var(--card-bg); border: 1px solid #444; color: white; padding: 10px 20px; border-radius: 25px; cursor: pointer; transition: 0.3s; font-weight: bold; white-space: nowrap; }
+        .cat-btn:hover, .cat-btn.active { background: var(--main-gold); color: black; border-color: var(--main-gold); }
+
+        /* Container */
+        .container { padding: 30px; max-width: 1200px; margin: auto; }
+        .menu-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+
+        /* Food Card */
+        .food-card { background: var(--card-bg); border-radius: 25px; overflow: hidden; border: 1px solid #333; transition: 0.4s; position: relative; }
+        .food-card:hover { transform: translateY(-10px); border-color: var(--main-gold); }
+        .img-box { height: 230px; position: relative; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .price-tag { position: absolute; top: 15px; left: 15px; background: var(--main-gold); color: black; padding: 5px 15px; border-radius: 12px; font-weight: 900; }
+        .info { padding: 20px; }
+        .info h3 { color: var(--main-gold); margin: 0 0 10px; font-size: 1.5rem; }
+        .info p { color: #aaa; font-size: 0.9rem; margin-bottom: 20px; }
+        .order-btn { width: 100%; padding: 12px; background: transparent; border: 2px solid var(--main-gold); color: var(--main-gold); border-radius: 15px; cursor: pointer; font-weight: bold; }
+        .order-btn:hover { background: var(--main-gold); color: black; }
+
+        .footer { text-align: center; padding: 40px; color: #555; }
+    </style>
+</head>
+<body>
+
+    <div class="lang-bar">
+        <button class="lang-btn">English</button>
+        <button class="lang-btn">کوردی</button>
+    </div>
+
+    <div class="header">
+        <div class="logo-box"><i class="fas fa-burger"></i></div>
+        <h1>مەتعه‌مێ قادش</h1>
+        <p>🛡️ ب سەرپەرشتیا مەسروور شەریف 🛡️</p>
+    </div>
+
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterMenu('all')">هەمی</button>
+        <button class="cat-btn" onclick="filterMenu('burger')">بۆڕگەر</button>
+        <button class="cat-btn" onclick="filterMenu('pizza')">پیتزا</button>
+        <button class="cat-btn" onclick="filterMenu('drink')">ڤەخوارن</button>
+    </div>
+
+    <div class="container">
+        <div class="menu-section" id="menu-grid">
+            <div class="food-card" data-type="burger">
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600" alt="Burger">
+                    <div class="price-tag">7,500 IQD</div>
+                </div>
+                <div class="info">
+                    <h3>بۆڕگەرێ جیهانی</h3>
+                    <p>گۆشتێ فرێش، پەنیرێ چێدەر، و سۆسا قادش یا تایبەت.</p>
+                    <button class="order-btn">داوا بکە</button>
+                </div>
+            </div>
+
+            <div class="food-card" data-type="pizza">
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600" alt="Pizza">
+                    <div class="price-tag">11,000 IQD</div>
+                </div>
+                <div class="info">
+                    <h3>پیتزا تایبەت</h3>
+                    <p>تژی پەنیرێ مۆزارێلا و قارچک و سەوزەواتێن فرێش.</p>
+                    <button class="order-btn">داوا بکە</button>
+                </div>
+            </div>
+
+            <div class="food-card" data-type="drink">
+                <div class="img-box">
+                    <img src="https://images.unsplash.com/photo-1544145945-f904253d0c71?w=600" alt="Drink">
+                    <div class="price-tag">1,000 IQD</div>
+                </div>
+                <div class="info">
+                    <h3>کۆکا کۆلا</h3>
+                    <p>ڤەخوارنەکا سارد و ب تەم د گەڵ ژەما تە.</p>
+                    <button class="order-btn">داوا بکە</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        ب شانازی ڤە هاتیە دروستکرن ژ لایێ <b>Masror Tech 🛡️</b>
+    </div>
+
+    <script>
+        function filterMenu(category) {
+            const cards = document.querySelectorAll('.food-card');
+            const buttons = document.querySelectorAll('.cat-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-type') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+  </html>
+  
