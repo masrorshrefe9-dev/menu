@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>خارنگەها قەدش</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --main: #ffcc00; --bg: #0b0b0b; --card: #161616; }
+        body { background-color: var(--bg); color: white; font-family: 'Tahoma', sans-serif; margin: 0; padding: 0; transition: 0.3s; }
+        .lang-bar { background: #000; padding: 15px; display: flex; justify-content: center; gap: 10px; border-bottom: 2px solid var(--main); position: sticky; top: 0; z-index: 2000; }
+        .lang-btn { background: var(--card); border: 1px solid var(--main); color: var(--main); padding: 8px 12px; border-radius: 10px; cursor: pointer; font-weight: bold; }
+        .header { text-align: center; padding: 40px 20px; border-bottom: 4px solid var(--main); }
+        .nav-scroll { background: #111; padding: 15px; display: flex; gap: 10px; overflow-x: auto; border-bottom: 2px solid #222; }
+        .cat-item { background: var(--card); border: 1px solid #333; color: white; padding: 10px 20px; border-radius: 25px; cursor: pointer; white-space: nowrap; font-weight: bold; }
+        .cat-item.active { background: var(--main); color: black; }
+        .container { padding: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 120px; }
+        .card { background: var(--card); border-radius: 20px; overflow: hidden; border: 1px solid #252525; position: relative; }
+        .price { position: absolute; top: 10px; left: 10px; background: var(--main); color: black; padding: 5px 12px; border-radius: 10px; font-weight: bold; }
+        .info { padding: 15px; text-align: center; }
+        .add-btn { width: 100%; background: var(--main); border: none; padding: 12px; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .cart-bar { position: fixed; bottom: 0; width: 100%; background: #000; border-top: 3px solid var(--main); padding: 20px; display: none; justify-content: space-between; align-items: center; z-index: 1000; }
+        .order-now { background: #25d366; color: white; padding: 12px 25px; border-radius: 12px; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="lang-bar">
+        <button class="lang-btn" onclick="changeLang('ku')">کوردی</button>
+        <button class="lang-btn" onclick="changeLang('ar')">عربي</button>
+        <button class="lang-btn" onclick="changeLang('en')">English</button>
+    </div>
+
+    <div class="header">
+        <h1 id="main-title">خارنگەها قەدش</h1>
+        <p id="slogan-text">بۆ خۆشترین خارن ب تاما مالێ</p>
+    </div>
+
+    <div class="nav-scroll">
+        <div class="cat-item active" id="cat-all" onclick="filter('all')">هەمی</div>
+        <div class="cat-item" id="cat-home" onclick="filter('home')">خارنێن مالێ</div>
+        <div class="cat-item" id="cat-grill" onclick="filter('grill')">برزانک</div>
+        <div class="cat-item" id="cat-nargila" onclick="filter('nargila')">نەرگیلە</div>
+    </div>
+
+    <div class="container" id="menu-grid">
+        <div class="card" data-type="home">
+            <div class="price">8,000 IQD</div>
+            <img src="لینکێ_تەسیرێ" style="width:100%">
+            <div class="info">
+                <h3 class="food-name" data-ku="بریانی" data-ar="برياني" data-en="Biryani">بریانی</h3>
+                <p class="food-desc" data-ku="بریانی ب گۆشتێ فڕێش" data-ar="برياني باللحم الطازج" data-en="Biryani with fresh meat">بریانی ب گۆشتێ فڕێش</p>
+                <button class="add-btn order-text" onclick="addToCart(this)">زێدە بکە بۆ سەبەتێ</button>
+            </div>
+        </div>
+
+        <div class="card" data-type="nargila">
+            <div class="price">5,000 IQD</div>
+            <img src="لینکێ_تەسیرێ" style="width:100%">
+            <div class="info">
+                <h3 class="food-name" data-ku="نەرگیلە" data-ar="نرجيلة" data-en="Hookah">نەرگیلە</h3>
+                <p class="food-desc" data-ku="هەمی جۆرێن تێکهەڵ" data-ar="جميع أنواع النكهات" data-en="All mix flavors">هەمی جۆرێن تێکهەڵ</p>
+                <button class="add-btn order-text" onclick="addToCart(this)">زێدە بکە بۆ سەبەتێ</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-bar" id="cart-ui">
+        <div><span id="cart-label">تشتێن هەڵبژارتی:</span> <span id="cart-count">0</span></div>
+        <a href="#" id="wa-link" class="order-now">Order on WhatsApp</a>
+    </div>
+
+    <script>
+        let cart = [];
+        let currentLang = 'ku';
+        let waNumber = "964750XXXXXXX"; 
+
+        function addToCart(btn) {
+            const card = btn.closest('.card');
+            const name = card.querySelector('.food-name').getAttribute('data-' + currentLang);
+            cart.push(name);
+            document.getElementById('cart-ui').style.display = 'flex';
+            document.getElementById('cart-count').innerText = cart.length;
+            updateWALink();
+        }
+
+        function updateWALink() {
+            let text = currentLang === 'ku' ? "سڵاڤ، داواکاری من ئەڤەیە:" : (currentLang === 'ar' ? "مرحبا، طلبي هو:" : "Hello, my order is:");
+            text += "%0A" + cart.join("%0A");
+            document.getElementById('wa-link').href = `https://wa.me/${waNumber}?text=${text}`;
+        }
+
+        function filter(type) {
+            document.querySelectorAll('.cat-item').forEach(i => i.classList.remove('active'));
+            event.target.classList.add('active');
+            document.querySelectorAll('.card').forEach(c => c.style.display = (type==='all'||c.dataset.type===type)?'block':'none');
+        }
+
+        function changeLang(lang) {
+            currentLang = lang;
+            if(lang === 'ar') {
+                document.getElementById('main-title').innerText = "مطعم قدش";
+                document.getElementById('cat-all').innerText = "الكل";
+                document.getElementById('cat-home').innerText = "أكل بيت";
+                document.getElementById('cat-nargila').innerText = "نرجيلة";
+                document.getElementById('cart-label').innerText = "الأصناف:";
+                document.querySelectorAll('.order-text').forEach(b => b.innerText = "إضافة للسلة");
+            } else if(lang === 'en') {
+                document.getElementById('main-title').innerText = "Qadash Restaurant";
+                document.getElementById('cat-all').innerText = "All";
+                document.getElementById('cat-home').innerText = "Home Food";
+                document.getElementById('cat-nargila').innerText = "Hookah";
+                document.getElementById('cart-label').innerText = "Items:";
+                document.querySelectorAll('.order-text').forEach(b => b.innerText = "Add to Basket");
+            } else {
+                document.getElementById('main-title').innerText = "خارنگەها قەدش";
+                document.getElementById('cat-all').innerText = "هەمی";
+                document.getElementById('cat-home').innerText = "خارنێن مالێ";
+                document.getElementById('cat-nargila').innerText = "نەرگیلە";
+                document.querySelectorAll('.order-text').forEach(b => b.innerText = "زێدە بکە بۆ سەبەتێ");
+            }
+            document.querySelectorAll('.food-name').forEach(f => f.innerText = f.dataset[lang]);
+            document.querySelectorAll('.food-desc').forEach(f => f.innerText = f.dataset[lang]);
+            updateWALink();
+        }
+    </script>
+</body>
+  </html>
+  
